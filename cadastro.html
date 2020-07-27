@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script>
+           var usuarios = new Array()
+            function cadastrarUsuario(){
+                var clogin = document.getElementById('idlogin').value
+                var csenha = document.getElementById('idPassword1').value
+                var csenhaConfirmacao = document.getElementById('idPassword2').value
+                
+                if(csenha == csenhaConfirmacao){
+                    //antes de cadastrar eu preciso fazer o carregamento dos dados salvos
+                    usuarios = JSON.parse(localStorage.getItem('Usuarios'))
+                    //se não existe nada cadastrado no localstorage, a variável será null, portanto eu devo recriar o array
+                    if(usuarios == null)
+                        usuarios = new Array()
+
+                    //criando uma posição para o array
+                    var user = {
+                        login: clogin,
+                        senha: csenha        
+                    }
+                    //adiciono a posição criada anterior, no array usuários    
+                    usuarios.push(user)
+                    //converto usuarios para json e envio para o localstorage
+                    localStorage.setItem('Usuarios', JSON.stringify(usuarios))
+
+                    alert('Usuário cadastrado com sucesso!')
+                    window.open('index.html')
+                }else{
+                    alert('Senhas não conferem!')
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h3>Cadastro de Usuário</h3>
+                    <a href="index.html">voltar</a><br>
+                    <label for="exampleInputLogin">Login:</label>
+                    <input type="text" class="form-control" id="idlogin" aria-describedby="loginHelp" placeholder="Seu login">
+                    
+                    <label for="exampleInputSenha">Senha</label>
+                    <input type="password" class="form-control" id="idPassword1" placeholder="Senha"> 
+                    
+                    <label for="exampleInputSenha">Senha</label>
+                    <input type="password" class="form-control" id="idPassword2" placeholder="Senha novamente">   
+
+                    <button type="submit" class="btn btn-primary" onclick='cadastrarUsuario()'>Cadastrar</button>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </div>
+    </body>
+</html>
